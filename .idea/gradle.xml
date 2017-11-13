@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="LOCAL" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="G:\android-studio\gradle\gradle-2.14.1" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/ButterKnife" />
+            <option value="$PROJECT_DIR$/EventBus" />
+            <option value="$PROJECT_DIR$/FastJson" />
+            <option value="$PROJECT_DIR$/FontFamily" />
+            <option value="$PROJECT_DIR$/Glide" />
+            <option value="$PROJECT_DIR$/MD风格UI" />
+            <option value="$PROJECT_DIR$/RecyclerView" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/中间凸起的tab" />
+            <option value="$PROJECT_DIR$/浸式状态栏" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

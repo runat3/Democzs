@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ButterKnife/ButterKnife.iml" filepath="$PROJECT_DIR$/ButterKnife/ButterKnife.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Democzs.iml" filepath="$PROJECT_DIR$/Democzs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EventBus/EventBus.iml" filepath="$PROJECT_DIR$/EventBus/EventBus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FastJson/FastJson.iml" filepath="$PROJECT_DIR$/FastJson/FastJson.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FontFamily/FontFamily.iml" filepath="$PROJECT_DIR$/FontFamily/FontFamily.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Glide/Glide.iml" filepath="$PROJECT_DIR$/Glide/Glide.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MD风格UI/MD风格UI.iml" filepath="$PROJECT_DIR$/MD风格UI/MD风格UI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RecyclerView/RecyclerView.iml" filepath="$PROJECT_DIR$/RecyclerView/RecyclerView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/中间凸起的tab/中间凸起的tab.iml" filepath="$PROJECT_DIR$/中间凸起的tab/中间凸起的tab.iml" />
+      <module fileurl="file://$PROJECT_DIR$/浸式状态栏/浸式状态栏.iml" filepath="$PROJECT_DIR$/浸式状态栏/浸式状态栏.iml" />
+    </modules>
+  </component>
+</project>

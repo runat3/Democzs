@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">中间凸起的Tab</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

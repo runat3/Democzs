@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.test.eventbus.MainActivity">
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="先注册/订阅"
+        android:onClick="send"
+        android:layout_gravity="center"
+        android:textSize="18sp"/>
+
+    <Button
+        android:id="@+id/btn_sendSticky"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:onClick="sendSticky"
+        android:text="发送粘性事件"
+        android:layout_gravity="center"
+        android:textSize="18sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="Message:"
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:layout_marginTop="50dp"
+        android:id="@+id/tv_message"/>
+</LinearLayout>

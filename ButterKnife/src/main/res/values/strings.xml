@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ButterKnife</string>
+    <string name="butter">This is bind ButterKnife(ON STRING)"</string>
+</resources>
