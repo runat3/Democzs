@@ -56,7 +56,7 @@ public class ConstraintLayoutActivity extends AppCompatActivity
         @Override
         public View getView(int position, View convertView, ViewGroup parent)
         {
-            View view = getLayoutInflater().inflate(R.layout.item,parent,false);
+            View view = getLayoutInflater().inflate(R.layout.item,null);
             return view;
         }
     }
