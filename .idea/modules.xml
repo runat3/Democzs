@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/FastJson/FastJson.iml" filepath="$PROJECT_DIR$/FastJson/FastJson.iml" />
       <module fileurl="file://$PROJECT_DIR$/FontFamily/FontFamily.iml" filepath="$PROJECT_DIR$/FontFamily/FontFamily.iml" />
       <module fileurl="file://$PROJECT_DIR$/Glide/Glide.iml" filepath="$PROJECT_DIR$/Glide/Glide.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ImageSelector/ImageSelector.iml" filepath="$PROJECT_DIR$/ImageSelector/ImageSelector.iml" />
       <module fileurl="file://$PROJECT_DIR$/MD风格UI/MD风格UI.iml" filepath="$PROJECT_DIR$/MD风格UI/MD风格UI.iml" />
       <module fileurl="file://$PROJECT_DIR$/RecyclerView/RecyclerView.iml" filepath="$PROJECT_DIR$/RecyclerView/RecyclerView.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
