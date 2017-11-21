@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     ImageModel imageModel = new ImageModel();
                     imageModel.setImgPath(path);
                     imgList.add(imageModel);
+                    //// TODO: 2017/11/21 getPathDirName
                 }
                 cursor.close();
                 mHandler.sendEmptyMessage(0x110);
