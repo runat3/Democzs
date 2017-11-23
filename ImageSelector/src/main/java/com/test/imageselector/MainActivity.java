@@ -11,11 +11,13 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -32,6 +34,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -87,6 +90,7 @@ public class MainActivity extends AppCompatActivity
                 return false;
             }
         }));
+        Collections.reverse(mImages); // 倒序排列
         mImgAdapter = new ImageAdapter(this, mImages, mCurrentDir.getAbsolutePath());
         gv_image.setAdapter(mImgAdapter);
         tv_imgDir.setText(mCurrentDir.getName());
@@ -112,18 +116,33 @@ public class MainActivity extends AppCompatActivity
         final View image_dir_popup = getLayoutInflater().inflate(R.layout.image_dir_popup, null);
         ListView lv_imgDir = (ListView) image_dir_popup.findViewById(R.id.lv_imgDir);
         lv_imgDir.setAdapter(new ImgDirAdapter(mFolderBeans));
+        //获得手机屏幕的宽高
+        WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(displayMetrics);
+
+        //实例化一个popupwindow
         final PopupWindow imageDirPopupWindow = new PopupWindow(image_dir_popup, ViewGroup.LayoutParams.MATCH_PARENT,
-                600, true);
+                (int)(displayMetrics.heightPixels*0.6), true);
         imageDirPopupWindow.setOutsideTouchable(true);
         imageDirPopupWindow.setFocusable(true);
         imageDirPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+        imageDirPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener()
+        {
+            @Override
+            public void onDismiss()
+            {
+                backgroundAlpha(1f);
+            }
+        });
         rl_imgDirSelect.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Log.e("y", "y");
-                imageDirPopupWindow.showAtLocation(rl_imgDirSelect, Gravity.TOP, 0, 0);
+//                imageDirPopupWindow.showAtLocation(rl_imgDirSelect, Gravity.TOP, 0, 0);
+                imageDirPopupWindow.showAsDropDown(rl_imgDirSelect);
+                backgroundAlpha(0.3f);
             }
         });
         lv_imgDir.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -131,7 +150,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                imageDirPopupWindow.dismiss();
+
                 mCurrentDir = new File(mFolderBeans.get(position).getDir());
                 mImages = Arrays.asList(mCurrentDir.list(new FilenameFilter()
                 {
@@ -147,13 +166,23 @@ public class MainActivity extends AppCompatActivity
                         return false;
                     }
                 }));
+                Collections.reverse(mImages); // 倒序排列
                 mImgAdapter = new ImageAdapter(MainActivity.this, mImages, mCurrentDir.getAbsolutePath());
                 gv_image.setAdapter(mImgAdapter);
                 tv_imgDir.setText(mCurrentDir.getName());
                 tv_imgCount.setText(mImages.size() + "");
-                Log.e("dirpath", mCurrentDir.getAbsolutePath());
+                imageDirPopupWindow.dismiss();
+                //// TODO: 2017/11/23 所有图片-》单独一个适配器
             }
         });
+    }
+
+    //窗口背景透明度
+    private void backgroundAlpha(float f)
+    {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = f; //0.0-1.0
+        getWindow().setAttributes(lp);
     }
 
     private void initData()
