@@ -5,6 +5,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.test.imageselector.MainActivity">
 
     <GridView
@@ -13,8 +14,33 @@
         android:horizontalSpacing="3dp"
         android:id="@+id/gv_image"
         android:verticalSpacing="3dp"
+        android:layout_weight="1"
         android:numColumns="3">
     </GridView>
+    <RelativeLayout
+        android:id="@+id/rl_imgDirSelect"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="#CC000000">
+        <TextView
+            android:id="@+id/tv_imgDir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginLeft="16dp"
+            android:textColor="#fff"
+            android:text="dir"/>
+        <TextView
+            android:id="@+id/tv_imgCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:textColor="#fff"
+            android:text="1000张"/>
+    </RelativeLayout>
 
 
 </LinearLayout>
