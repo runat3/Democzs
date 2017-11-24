@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private GridView gv_image;
-    private List<String> mImages;
+    private List<String> mImages;//文件夹内图片
     private ImageAdapter mImgAdapter;
     private RelativeLayout rl_imgDirSelect;
     private TextView tv_imgDir;
@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity
     private File mCurrentDir;//当前目录
     private int mMaxCount;//当前目录下的图片数量
     private List<FolderBean> mFolderBeans = new ArrayList<FolderBean>();
+
+    private List<String> allImgs = new ArrayList<String>();
 
 
     private Handler mHandler = new Handler()
@@ -71,30 +73,9 @@ public class MainActivity extends AppCompatActivity
 
     private void data2View()
     {
-        if (mCurrentDir == null)
-        {
-            Toast.makeText(this, "未扫描到任何图片", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        mImages = Arrays.asList(mCurrentDir.list(new FilenameFilter()
-        {
-            @Override
-            public boolean accept(File dir, String name)
-            {
-                if (name.endsWith(".jpg") || name.endsWith(".jpeg")
-                        || name.endsWith(".png")||name.endsWith(".JPG") || name.endsWith(".JPEG")
-                        || name.endsWith(".PNG"))
-                {
-                    return true;
-                }
-                return false;
-            }
-        }));
-        Collections.reverse(mImages); // 倒序排列
-        mImgAdapter = new ImageAdapter(this, mImages, mCurrentDir.getAbsolutePath());
-        gv_image.setAdapter(mImgAdapter);
-        tv_imgDir.setText(mCurrentDir.getName());
-        tv_imgCount.setText(mMaxCount + "");
+        gv_image.setAdapter(new AllImgAdapter(allImgs));
+        tv_imgDir.setText("所有图片");
+        tv_imgCount.setText(allImgs.size() + "");
     }
 
 
@@ -123,7 +104,7 @@ public class MainActivity extends AppCompatActivity
 
         //实例化一个popupwindow
         final PopupWindow imageDirPopupWindow = new PopupWindow(image_dir_popup, ViewGroup.LayoutParams.MATCH_PARENT,
-                (int)(displayMetrics.heightPixels*0.6), true);
+                (int) (displayMetrics.heightPixels * 0.6), true);
         imageDirPopupWindow.setOutsideTouchable(true);
         imageDirPopupWindow.setFocusable(true);
         imageDirPopupWindow.setBackgroundDrawable(new BitmapDrawable());
@@ -140,7 +121,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-//                imageDirPopupWindow.showAtLocation(rl_imgDirSelect, Gravity.TOP, 0, 0);
                 imageDirPopupWindow.showAsDropDown(rl_imgDirSelect);
                 backgroundAlpha(0.3f);
             }
@@ -150,29 +130,35 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-
-                mCurrentDir = new File(mFolderBeans.get(position).getDir());
-                mImages = Arrays.asList(mCurrentDir.list(new FilenameFilter()
+                if (position == 0)//所有图片
                 {
-                    @Override
-                    public boolean accept(File dir, String name)
+                    gv_image.setAdapter(new AllImgAdapter(allImgs));
+                    tv_imgDir.setText("所有图片");
+                    tv_imgCount.setText(allImgs.size() + "");
+                } else
+                {
+                    mCurrentDir = new File(mFolderBeans.get(position).getDir());
+                    mImages = Arrays.asList(mCurrentDir.list(new FilenameFilter()
                     {
-                        if (name.endsWith(".jpg") || name.endsWith(".jpeg")
-                                || name.endsWith(".png") || name.endsWith(".JPG") || name.endsWith(".JPEG")
-                                || name.endsWith(".PNG"))
+                        @Override
+                        public boolean accept(File dir, String name)
                         {
-                            return true;
+                            name = name.toLowerCase();
+                            if (name.endsWith(".jpg") || name.endsWith(".jpeg")
+                                    || name.endsWith(".png"))
+                            {
+                                return true;
+                            }
+                            return false;
                         }
-                        return false;
-                    }
-                }));
-                Collections.reverse(mImages); // 倒序排列
-                mImgAdapter = new ImageAdapter(MainActivity.this, mImages, mCurrentDir.getAbsolutePath());
-                gv_image.setAdapter(mImgAdapter);
-                tv_imgDir.setText(mCurrentDir.getName());
-                tv_imgCount.setText(mImages.size() + "");
+                    }));
+                    Collections.reverse(mImages); // 倒序排列
+                    mImgAdapter = new ImageAdapter(MainActivity.this, mImages, mCurrentDir.getAbsolutePath());
+                    gv_image.setAdapter(mImgAdapter);
+                    tv_imgDir.setText(mCurrentDir.getName());
+                    tv_imgCount.setText(mImages.size() + "");
+                }
                 imageDirPopupWindow.dismiss();
-                //// TODO: 2017/11/23 所有图片-》单独一个适配器
             }
         });
     }
@@ -193,6 +179,8 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(MainActivity.this, "当前存储卡不可用！", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        //扫描image
         new Thread()
         {
             @Override
@@ -201,15 +189,19 @@ public class MainActivity extends AppCompatActivity
                 Uri imgUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
                 ContentResolver contentResolver = getContentResolver();
                 Cursor cursor = contentResolver.query(imgUri, null,
-                        MediaStore.Images.Media.MIME_TYPE + " = ? or " + MediaStore.Images.Media.MIME_TYPE + " = ? or " + MediaStore.Images.Media.MIME_TYPE + " = ? ",
+                        MediaStore.Images.Media.MIME_TYPE + " = ? or "
+                                + MediaStore.Images.Media.MIME_TYPE + " = ? or "
+                                + MediaStore.Images.Media.MIME_TYPE + " = ? ",
                         new String[]{"image/png", "image/jpg", "image/jpeg"}, MediaStore.Images.Media.DATE_MODIFIED);
 
                 //存储已扫描的父文件路径
                 Set<String> mDirPaths = new HashSet<String>();
-
                 while (cursor.moveToNext())
                 {
                     String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+                    //添加所有图片
+                    allImgs.add(path);
+
                     File parentFile = new File(path).getParentFile();
                     if (parentFile == null)
                     {
@@ -225,7 +217,23 @@ public class MainActivity extends AppCompatActivity
                         mDirPaths.add(dirPath);
                         folderBean = new FolderBean();
                         folderBean.setDir(dirPath);
-                        folderBean.setFirstImgPath(path);
+                        //获得文件夹内最后一张图片（最近添加的）作为目录的第一张封面
+                        List<String> strings = Arrays.asList(parentFile.list(new FilenameFilter()
+                        {
+                            @Override
+                            public boolean accept(File dir, String name)
+                            {
+                                name = name.toLowerCase();
+                                if (name.endsWith(".jpg") || name.endsWith(".jpeg")
+                                        || name.endsWith(".png"))
+                                {
+                                    return true;
+                                }
+                                return false;
+                            }
+                        }));
+                        folderBean.setFirstImgPath(dirPath+"/"+strings.get(strings.size()-1));
+//                        folderBean.setFirstImgPath(path);
                     }
                     if (parentFile.list() == null)
                     {
@@ -236,9 +244,9 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public boolean accept(File dir, String name)
                         {
+                            name = name.toLowerCase();
                             if (name.endsWith(".jpg") || name.endsWith(".jpeg")
-                                    || name.endsWith(".png")||name.endsWith(".JPG") || name.endsWith(".JPEG")
-                                    || name.endsWith(".PNG"))
+                                    || name.endsWith(".png"))
                             {
                                 return true;
                             }
@@ -254,6 +262,13 @@ public class MainActivity extends AppCompatActivity
                         mCurrentDir = parentFile;
                     }
                 }
+                //在容器顶部增加所有图片的分类
+                FolderBean folderBean = new FolderBean();
+                folderBean.setCount(allImgs.size());
+                folderBean.setFirstImgPath(allImgs.get(allImgs.size() - 1));
+                folderBean.setDir("/所有图片");
+                mFolderBeans.add(0, folderBean);
+                Collections.reverse(allImgs); // 倒序排列
                 cursor.close();
                 mHandler.sendEmptyMessage(0x110);
                 super.run();
@@ -356,6 +371,51 @@ public class MainActivity extends AppCompatActivity
             Glide.with(MainActivity.this).load(folderBean.getFirstImgPath()).into(iv_imgDir);
             tv_dirName.setText(folderBean.getName());
             tv_dirCount.setText(folderBean.getCount() + "");
+            return view;
+        }
+    }
+
+    private class AllImgAdapter extends BaseAdapter
+    {
+
+        private List<String> allImgs;
+
+        public AllImgAdapter(List<String> allImgs)
+        {
+            this.allImgs = allImgs;
+        }
+
+        @Override
+        public int getCount()
+        {
+            return allImgs.size();
+        }
+
+        @Override
+        public Object getItem(int position)
+        {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position)
+        {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
+            View view;
+            if (convertView == null)
+            {
+                view = getLayoutInflater().inflate(R.layout.item_image, parent, false);
+            } else
+            {
+                view = convertView;
+            }
+            ImageView iv_image = (ImageView) view.findViewById(R.id.iv_image);
+            Glide.with(MainActivity.this).load(allImgs.get(position)).into(iv_image);
             return view;
         }
     }
