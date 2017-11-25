@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:horizontalSpacing="3dp"
         android:id="@+id/gv_image"
-        android:verticalSpacing="3dp"
+        android:verticalSpacing="4dp"
         android:layout_weight="1"
         android:numColumns="3">
     </GridView>
