@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/ImageSelector/ImageSelector.iml" filepath="$PROJECT_DIR$/ImageSelector/ImageSelector.iml" />
       <module fileurl="file://$PROJECT_DIR$/MD风格UI/MD风格UI.iml" filepath="$PROJECT_DIR$/MD风格UI/MD风格UI.iml" />
       <module fileurl="file://$PROJECT_DIR$/RecyclerView/RecyclerView.iml" filepath="$PROJECT_DIR$/RecyclerView/RecyclerView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Retrofit/Retrofit.iml" filepath="$PROJECT_DIR$/Retrofit/Retrofit.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/中间凸起的tab/中间凸起的tab.iml" filepath="$PROJECT_DIR$/中间凸起的tab/中间凸起的tab.iml" />
       <module fileurl="file://$PROJECT_DIR$/浸式状态栏/浸式状态栏.iml" filepath="$PROJECT_DIR$/浸式状态栏/浸式状态栏.iml" />
