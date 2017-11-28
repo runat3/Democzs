@@ -1,5 +1,6 @@
 package com.test.retrofit.apiserver;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -10,6 +11,6 @@ import retrofit2.http.Path;
 
 public interface DouBanAPIServer
 {
-    @GET("/v2/book/{bookId}")
-    Call<String> getBookInfo(@Path("bookId") String bookId);
+    @GET("v2/book/{bookId}")
+    Call<ResponseBody> getBookInfo(@Path("bookId") String bookId);
 }

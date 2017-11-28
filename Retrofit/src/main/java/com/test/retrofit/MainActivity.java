@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import com.test.retrofit.apiserver.DouBanAPIServer;
 
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,22 +28,31 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv_respone = (TextView) findViewById(R.id.tv_respone);
-
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(DOU_BAN_API_HOST)
+                .build();
+        douBanAPIServer = retrofit.create(DouBanAPIServer.class);
     }
 
     public void getMethod(View view)
     {
-        Call<String> call = douBanAPIServer.getBookInfo("1003078");
-        call.enqueue(new Callback<String>()
+        Call<ResponseBody> call = douBanAPIServer.getBookInfo("1003078");
+        call.enqueue(new Callback<ResponseBody>()
         {
             @Override
-            public void onResponse(Call<String> call, Response<String> response)
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
             {
-                tv_respone.setText(response.body());
+                try
+                {
+                    tv_respone.setText(response.body().string());
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t)
+            public void onFailure(Call<ResponseBody> call, Throwable t)
             {
 
             }
