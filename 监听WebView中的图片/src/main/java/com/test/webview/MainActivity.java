@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity
                 NewsInfo.NewsBean newsBean = news.get(0);
                 String body1 = newsBean.getBody();
                 String bodys = new String(Base64.decode(body1.getBytes(), Base64.DEFAULT));
+                Log.e("bodys",bodys);
                 webView.loadDataWithBaseURL(BASE_URL,bodys,"text/html", "utf-8", null);
             }
 
