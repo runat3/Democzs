@@ -299,6 +299,36 @@ public class BookInfo
         this.translator = translator;
     }
 
+    @Override
+    public String toString()
+    {
+        return "BookInfo{" +
+                "rating=" + rating +
+                ", subtitle='" + subtitle + '\'' +
+                ", pubdate='" + pubdate + '\'' +
+                ", origin_title='" + origin_title + '\'' +
+                ", image='" + image + '\'' +
+                ", binding='" + binding + '\'' +
+                ", catalog='" + catalog + '\'' +
+                ", pages='" + pages + '\'' +
+                ", images=" + images +
+                ", alt='" + alt + '\'' +
+                ", id='" + id + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", isbn10='" + isbn10 + '\'' +
+                ", isbn13='" + isbn13 + '\'' +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", alt_title='" + alt_title + '\'' +
+                ", author_intro='" + author_intro + '\'' +
+                ", summary='" + summary + '\'' +
+                ", price='" + price + '\'' +
+                ", author=" + author +
+                ", tags=" + tags +
+                ", translator=" + translator +
+                '}';
+    }
+
     public static class RatingBean
     {
         /**
