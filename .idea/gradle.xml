@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/中间凸起的tab" />
             <option value="$PROJECT_DIR$/浸式状态栏" />
+            <option value="$PROJECT_DIR$/监听WebView中的图片" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

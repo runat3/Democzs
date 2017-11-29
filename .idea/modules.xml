@@ -15,6 +15,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/中间凸起的tab/中间凸起的tab.iml" filepath="$PROJECT_DIR$/中间凸起的tab/中间凸起的tab.iml" />
       <module fileurl="file://$PROJECT_DIR$/浸式状态栏/浸式状态栏.iml" filepath="$PROJECT_DIR$/浸式状态栏/浸式状态栏.iml" />
+      <module fileurl="file://$PROJECT_DIR$/监听WebView中的图片/监听WebView中的图片.iml" filepath="$PROJECT_DIR$/监听WebView中的图片/监听WebView中的图片.iml" />
     </modules>
   </component>
 </project>
