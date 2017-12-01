@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity
                 .load(gifurl)//资源路径
                 .error(R.mipmap.ic_launcher)//加载失败
                 .placeholder(R.mipmap.ic_launcher)//占位符
-                .apply(bitmapTransform(new CropCircleTransformation()))//图片转换
+                .circleCrop()
+//                .apply(bitmapTransform(new CropCircleTransformation()))//图片转换
                 .into(iv);
         Log.e("Glide", "onCreate: ");
     }

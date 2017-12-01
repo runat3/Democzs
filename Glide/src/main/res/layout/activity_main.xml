@@ -16,8 +16,4 @@
         android:layout_centerInParent="true"
         android:layout_width="400dp"
         android:layout_height="150dp"/>
-    <android.support.v7.widget.AppCompatCheckBox
-        android:background="@null"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 </RelativeLayout>
