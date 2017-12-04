@@ -25,7 +25,19 @@ public class MainActivity extends AppCompatActivity
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new MyWebViewClient());
         webView.addJavascriptInterface(new scriptInterface(MainActivity.this), "imagelistner");
-        webView.loadUrl("");
+        webView.loadUrl(URL);
+    }
+
+
+    // 监听
+    private class MyWebViewClient extends WebViewClient
+    {
+        @Override
+        public void onPageFinished(WebView view, String url)
+        {
+            // html加载完成之后，添加监听图片的点击js函数
+            addImageClickListner();
+        }
     }
 
     /**
@@ -35,10 +47,15 @@ public class MainActivity extends AppCompatActivity
     @android.webkit.JavascriptInterface
     private void addImageClickListner()
     {
-        // 这段js函数的功能就是，遍历所有的img几点，并添加onclick函数，在还是执行的时候调用本地接口传递url过去
-        webView.loadUrl("javascript:(function(){" + "var objs = document.getElementsByTagName(\"img\"); "
-                + "for(var i=0;i<objs.length;i++)  " + "{" + "    objs[i].onclick=function()  " + "    {  "
-                + "        window.imagelistner.openImage(this.src);  " + "    }  " + "}" + "})()");
+        // 这段js函数的功能就是，遍历所有的img标签，并添加onclick函数，在还是执行的时候调用本地接口传递url过去
+        webView.loadUrl("javascript:(function(){" +
+                "var objs = document.getElementsByTagName(\"img\"); "
+                + "for(var i=0;i<objs.length;i++)  " +
+                "{" + "    " +
+                "objs[i].onclick=function()  " + "    " +
+                "{  "
+                + "        window.imagelistner.openImage(this.src);  " + "   " +
+                " }  " + "}" + "})()");
     }
 
     // js通信接口
@@ -61,14 +78,4 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    // 监听
-    private class MyWebViewClient extends WebViewClient
-    {
-        @Override
-        public void onPageFinished(WebView view, String url)
-        {
-            // html加载完成之后，添加监听图片的点击js函数
-            addImageClickListner();
-        }
-    }
 }
