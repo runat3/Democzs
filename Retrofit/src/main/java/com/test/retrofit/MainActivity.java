@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity
 
     public void getMethod(View view)
     {
-        Call<BookInfo> call = APIServer.getBookInfo("1003079");
-        call.enqueue(new Callback<BookInfo>()
+        APIServer.getBookInfo("1003079").enqueue(new Callback<BookInfo>()
         {
             @Override
             public void onResponse(Call<BookInfo> call, Response<BookInfo> response)
